@@ -1,17 +1,11 @@
 package com.ffh.e_charging;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import com.ffh.e_charging.base.BaseActivity;
 
-import butterknife.ButterKnife;
-
-public class MainActivity extends AppCompatActivity {
-
-
+public class MainActivity extends BaseActivity {
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    public int initView() {
+        return R.layout.activity_main;
     }
 }
