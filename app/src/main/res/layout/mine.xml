@@ -1,0 +1,117 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.example.yichongbao.MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ccc"
+            android:paddingBottom="10dp" >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="我的账户" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/img_userIcon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_userIcon"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="登陆／注册" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="账户" />
+
+        <TextView style="@style/line" />
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="修改密码" />
+
+        <TextView style="@style/line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/mineText"
+                android:text="账户余额" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/ic_launcher"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:text="充值" />
+        </RelativeLayout>
+
+        <TextView style="@style/line" />
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="优惠券" />
+
+        <TextView style="@style/line" />
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="账户纪录" />
+
+        <TextView style="@style/line" />
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="共享店桩" />
+
+        <TextView style="@style/line" />
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="我要吐槽" />
+
+        <TextView style="@style/line" />
+
+        <TextView
+            style="@style/mineText"
+            android:drawableRight="@drawable/ic_launcher"
+            android:text="关于" />
+    </LinearLayout>
+
+</ScrollView>
