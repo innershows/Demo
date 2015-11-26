@@ -6,7 +6,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int initView() {
-        System.out.println("=======>>>>>");
+
+        System.out.println("---->");
         return R.layout.activity_main;
     }
 }
