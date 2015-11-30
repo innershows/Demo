@@ -1,117 +1,217 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context="com.example.yichongbao.MainActivity" >
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ccc"
-            android:paddingBottom="10dp" >
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/myRed"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:text="我的账户"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/back" />
+
+                <ImageView
+                    android:id="@+id/img_userIcon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_below="@id/tv_name"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/touxiang" />
+
+                <TextView
+                    android:id="@+id/dengluzhuce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_userIcon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:text="登陆／注册"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:text="我的账户" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher" />
-
-            <ImageView
-                android:id="@+id/img_userIcon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/tv_name"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_launcher" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/img_userIcon"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:text="登陆／注册" />
-        </RelativeLayout>
-
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="账户" />
-
-        <TextView style="@style/line" />
-
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="修改密码" />
-
-        <TextView style="@style/line" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                style="@style/mineText"
-                android:text="账户余额" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:drawableRight="@drawable/ic_launcher"
-                android:layout_centerVertical="true"
+                android:id="@+id/zhanghu"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/zhunaghu"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
                 android:gravity="center_vertical"
-                android:text="充值" />
-        </RelativeLayout>
+                android:padding="5dp"
+                android:text="账户" />
 
-        <TextView style="@style/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
 
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="优惠券" />
+                android:background="#BBB9BA" />
 
-        <TextView style="@style/line" />
+            <TextView
+                android:id="@+id/xiugaimima"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/xiugaimima"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="修改密码" />
 
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="账户纪录" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BBB9BA" />
 
-        <TextView style="@style/line" />
+            <RelativeLayout
+                android:id="@+id/rl_zhanghuyue"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:paddingRight="5dp">
 
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="共享店桩" />
+                <TextView
+                    android:id="@+id/zhanghuyue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/zhanghuyue"
+                    android:drawablePadding="10dp"
+                    android:padding="5dp"
+                    android:text="账户余额" />
 
-        <TextView style="@style/line" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/xuanze"
+                    android:gravity="center_vertical"
+                    android:text="充值" />
+            </RelativeLayout>
 
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="我要吐槽" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BBB9BA" />
 
-        <TextView style="@style/line" />
+            <TextView
+                android:id="@+id/youhuiquan"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/youhuiquan"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="优惠券" />
 
-        <TextView
-            style="@style/mineText"
-            android:drawableRight="@drawable/ic_launcher"
-            android:text="关于" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BBB9BA" />
+
+            <TextView
+                android:id="@+id/zhanghujilu"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/zhanghujilu"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="账户纪录" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BBB9BA" />
+
+            <TextView
+                android:id="@+id/gongxiangdianzhuang"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/gongxiangdianzhuang"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="共享电桩" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BBB9BA" />
+
+            <TextView
+                android:id="@+id/tucao"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/tucao"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="我要吐槽" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BBB9BA" />
+
+            <TextView
+                android:id="@+id/guanyu"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/guanyu"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/xuanze"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="关于" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/tuichuzhanghu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/btn_bg"
+            android:text="退出账户"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </ScrollView>
