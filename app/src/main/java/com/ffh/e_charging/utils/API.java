@@ -14,4 +14,6 @@ public class API {
     public static final String LOGIN_POST = DOMAIN + "signin";
     public static final String REGISTER_POST = DOMAIN + "signup";
     public static final String SMS_GET = DOMAIN + "sms?";
+    public static final String USER_INFO_DETAIL = DOMAIN + "users/?";
+    public static final String APPOINT_STATION = DOMAIN + "chargers/appoint";
 }

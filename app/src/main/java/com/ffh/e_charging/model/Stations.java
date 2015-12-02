@@ -75,7 +75,7 @@ public class Stations extends Entity {
         return content;
     }
 
-    public static class ContentEntity {
+    public static class ContentEntity extends Entity {
         private int stationId;
         private String stationName;
         private String lonLat;

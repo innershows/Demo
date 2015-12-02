@@ -10,8 +10,11 @@ import android.widget.TextView;
 import com.ffh.e_charging.Listener.OnFetchDataListener;
 import com.ffh.e_charging.R;
 import com.ffh.e_charging.base.BaseActivity;
+import com.ffh.e_charging.model.User;
 import com.ffh.e_charging.utils.API;
 import com.ffh.e_charging.utils.Net;
+import com.ffh.e_charging.utils.PreferenceUtils;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 
@@ -54,14 +57,44 @@ public class LoginActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.login:
 
-                HashMap params = new HashMap();
+                final HashMap params = new HashMap();
                 if (checkNameAndPwd(params)) {
 
 
                     Net.post(API.LOGIN_POST, new OnFetchDataListener() {
                         @Override
                         public void onSuccess(String result) {
+
+                            Gson gson = new Gson();
+                            User user = gson.fromJson(result, User.class);
+
+                            PreferenceUtils.put("token", user.getToken());
+                            PreferenceUtils.put("email", user.getEmail() + "");
+                            PreferenceUtils.put("mobile", user.getMobile());
+                            PreferenceUtils.put("nickname", user.getNickname() + "");
+                            PreferenceUtils.put("headimgurl", user.getHeadimgurl() + "");
+                            PreferenceUtils.put("registerDate", user.getRegisterDate());
+                            PreferenceUtils.put("sex", user.getSex());
+                            PreferenceUtils.put("password", params.get("password") + "");
+
                             finish();
+
+                            PreferenceUtils.put("isLogin", true);
+
+
+                            Net.get(API.USER_INFO_DETAIL, new OnFetchDataListener() {
+                                @Override
+                                public void onSuccess(String result) {
+
+                                }
+
+                                @Override
+                                public void onFail(int respCode, String data) {
+
+                                }
+                            });
+//                            Log.i("info", result);
+
                             st("登陆成功");
                         }
 

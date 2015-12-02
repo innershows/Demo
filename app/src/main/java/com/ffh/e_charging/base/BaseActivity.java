@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 /**
@@ -11,8 +13,12 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends Activity {
 
+
+    protected static List<Activity> activities;
+
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
+        activities.add(this);
         super.onCreate(savedInstanceState);
         setContentView(initView());
         ButterKnife.bind(this);
@@ -38,6 +44,7 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        activities.remove(this);
     }
 
     /**

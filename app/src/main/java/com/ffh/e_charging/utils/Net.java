@@ -90,7 +90,7 @@ public class Net {
                 NetworkResponse networkResponse = error.networkResponse;
 
                 //验证错误
-                if (networkResponse.statusCode == 401 || networkResponse.statusCode == 404) {
+                if (networkResponse.statusCode == 401) {
                     getAccessKey();
                     return;
                 }

@@ -15,6 +15,7 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:background">#ccc</item>
     </style>
+
     <style name="mineText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -23,4 +24,19 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">10dp</item>
     </style>
+
+
+
+
+    <!-- 去掉背景Dialog -->
+    <style name="NobackDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
+
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+
+    </style>
+
 </resources>
