@@ -16,4 +16,7 @@ public class API {
     public static final String SMS_GET = DOMAIN + "sms?";
     public static final String USER_INFO_DETAIL = DOMAIN + "users/?";
     public static final String APPOINT_STATION = DOMAIN + "chargers/appoint";
+    public static final String APPOINT_CANCEL = DOMAIN + "chargers/appointment/cancel";
+    public static final String APPOINT_ARRIVED = DOMAIN + "chargers/park";
+    public static final String CHARGES_ONE_STATION = DOMAIN + "stations/%s/chargers";
 }

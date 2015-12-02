@@ -72,6 +72,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 a.finish();
             }
         }
+        System.exit(0);
         super.onBackPressed();
     }
 

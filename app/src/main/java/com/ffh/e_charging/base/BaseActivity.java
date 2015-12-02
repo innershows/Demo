@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -14,7 +15,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends Activity {
 
 
-    protected static List<Activity> activities;
+    protected static List<Activity> activities = new ArrayList<>();
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {

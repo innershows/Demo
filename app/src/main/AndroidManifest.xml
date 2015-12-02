@@ -63,8 +63,13 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.MineActivity" />
-        <activity android:name=".activity.StatusActivity" />
+        <activity
+            android:name=".activity.MineActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.StatusActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.ChargeListActivity"></activity>
     </application>
 
 </manifest>

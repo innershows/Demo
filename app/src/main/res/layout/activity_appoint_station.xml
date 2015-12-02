@@ -104,10 +104,10 @@
 
             <Button
                 android:id="@+id/btn_cancel"
-                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:onClick="onClick"
                 android:text="取消预约" />
         </RelativeLayout>
 
@@ -118,14 +118,19 @@
 
             <Button
                 android:id="@+id/btn_arrived"
-                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:onClick="onClick"
                 android:text="我已到达" />
         </RelativeLayout>
 
     </LinearLayout>
 
+    <com.ffh.e_charging.view.ButtomTabView
+        android:id="@+id/tab_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal" />
 
 </LinearLayout>

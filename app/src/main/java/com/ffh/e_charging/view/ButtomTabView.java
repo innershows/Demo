@@ -63,7 +63,7 @@ public class ButtomTabView extends LinearLayout implements RadioGroup.OnCheckedC
         ((RadioButton) (rg.getChildAt(index))).setChecked(true);
     }
 
-    private int lastChosen = 0;
+    private static int lastChosen = 0;
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -71,22 +71,19 @@ public class ButtomTabView extends LinearLayout implements RadioGroup.OnCheckedC
             RadioButton rb = (RadioButton) group.getChildAt(index);
             if (rb.isChecked() && index != lastChosen) {
 
+                lastChosen = index;
+
                 switch (index) {
                     case 0:
                         getContext().startActivity(new Intent(getContext(), MainActivity.class));
                         break;
                     case 1:
                         getContext().startActivity(new Intent(getContext(), AppointStationActivity.class));
-
                         break;
                     case 2:
                         getContext().startActivity(new Intent(getContext(), MineActivity.class));
-
                         break;
                 }
-
-                lastChosen = index;
-
 
 //                Fragment fragment = fragments.get(index);
 //                if (fragment == null) {
@@ -130,5 +127,9 @@ public class ButtomTabView extends LinearLayout implements RadioGroup.OnCheckedC
 
     public void setMapView(View mapView) {
         this.mapView = mapView;
+    }
+
+    public void setIndex(int index) {
+        lastChosen = index;
     }
 }
