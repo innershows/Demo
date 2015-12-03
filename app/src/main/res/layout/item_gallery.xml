@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:drawableRight="@drawable/three_point"
         android:text="科技大厦充电"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
@@ -48,10 +49,11 @@
             android:text="充电桩数:5" />
 
         <RatingBar
+            android:layout_marginLeft="10dp"
             android:id="@+id/station_rating"
             style="@style/roomRatingBar"
             android:layout_width="wrap_content"
-            android:layout_height="16px"
+            android:layout_height="10dp"
             android:layout_gravity="center_vertical" />
 
     </LinearLayout>
@@ -67,30 +69,57 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/station_gps"
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="导航" />
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/station_book"
+            <TextView
+                android:id="@+id/station_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/gl_gps"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="导航" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="预约" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/station_use"
+            <TextView
+                android:id="@+id/station_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/gb_appoint"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="预约" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="使用" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+            <TextView
+                android:id="@+id/station_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/gl_use"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="使用" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

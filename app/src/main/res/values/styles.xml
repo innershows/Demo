@@ -59,6 +59,8 @@
 
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
 
+        <item name="android:height">56px</item>
+        <item name="android:maxHeight">56px</item>
     </style>
 
 </resources>

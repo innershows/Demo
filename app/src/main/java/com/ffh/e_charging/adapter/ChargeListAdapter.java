@@ -38,14 +38,21 @@ public class ChargeListAdapter extends RecyclerView.Adapter {
         return new MyViewHolder(inflater.inflate(R.layout.item_c_l, parent, false));
     }
 
+    private View.OnClickListener listener;
+
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder holder1 = (MyViewHolder) holder;
         holder1.chargerName.setText(chargeLists.get(position).getChargerName());
-        holder1.chargerStatus.setText(chargeLists.get(position).getStatus()+"");
-        holder1.chargerType.setText(chargeLists.get(position).getType()+"");
+        holder1.chargerStatus.setText(chargeLists.get(position).getStatus() + "");
+        holder1.chargerType.setText(chargeLists.get(position).getType() + "");
         holder1.chargerUseGonglv.setText(chargeLists.get(position).getChargerId());
-
+        holder1.flFather.setTag(chargeLists.get(position));
+        holder1.flFather.setOnClickListener(listener);
     }
 
     @Override
@@ -69,6 +76,9 @@ public class ChargeListAdapter extends RecyclerView.Adapter {
         TextView chargerType;
         @Bind(R.id.charger_use_gonglv)
         TextView chargerUseGonglv;
+
+        @Bind(R.id.rl_father)
+        View flFather;
 
         MyViewHolder(View view) {
             super(view);

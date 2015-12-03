@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -55,7 +54,7 @@ import java.util.Map;
 import butterknife.Bind;
 
 
-public class MainActivity extends BaseActivity implements LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends BaseActivity implements LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, View.OnClickListener {
 
 
     @Bind(R.id.location)
@@ -339,6 +338,10 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
                 break;
             case R.id.station_use:
                 //使用
+
+                Intent intent3 = new Intent(this, ChargeListActivity.class);
+                intent3.putExtra("station", stations.getContent().get(Integer.parseInt(v.getTag() + "")));
+                startActivity(intent3);
                 break;
 
         }
@@ -509,7 +512,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         gallery.setSelection(position, true);
 
 
-        gallery.setOnItemClickListener(this);
+//        gallery.setOnItemClickListener(this);
 
     }
 
@@ -523,10 +526,10 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         super.onBackPressed();
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, ChargeListActivity.class);
-        intent.putExtra("station", stations.getContent().get(position));
-        startActivity(intent);
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent intent = new Intent(this, ChargeListActivity.class);
+//        intent.putExtra("station", stations.getContent().get(position));
+//        startActivity(intent);
+//    }
 }

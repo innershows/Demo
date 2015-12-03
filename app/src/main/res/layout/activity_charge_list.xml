@@ -38,6 +38,11 @@
         android:scrollbars="vertical" />
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/myRed" />
+
     <com.ffh.e_charging.view.ButtomTabView
         android:id="@+id/btn_tab"
         android:layout_width="match_parent"

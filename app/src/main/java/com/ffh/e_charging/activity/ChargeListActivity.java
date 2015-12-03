@@ -18,12 +18,14 @@ import com.ffh.e_charging.utils.Net;
 import com.ffh.e_charging.view.ButtomTabView;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
 
-public class ChargeListActivity extends BaseActivity {
+
+public class ChargeListActivity extends BaseActivity implements View.OnClickListener {
 
     @Bind(R.id.recycler_charge)
     RecyclerView recyclerCharge;
@@ -68,13 +70,12 @@ public class ChargeListActivity extends BaseActivity {
 
                 System.out.println("====>" + chargeLists.size());
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerCharge.setAdapter(new ChargeListAdapter(ChargeListActivity.this, chargeLists));
 
-                    }
-                });
+                ChargeListAdapter adapter = new ChargeListAdapter(ChargeListActivity.this, chargeLists);
+                adapter.setOnItemClickListener(ChargeListActivity.this);
+                recyclerCharge.setAdapter(adapter);
+
+
             }
 
             @Override
@@ -84,4 +85,10 @@ public class ChargeListActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, OprAndNextActivity.class);
+        intent.putExtra("entity", (Serializable) v.getTag());
+        startActivity(intent);
+    }
 }

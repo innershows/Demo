@@ -69,7 +69,8 @@
         <activity
             android:name=".activity.StatusActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.ChargeListActivity"></activity>
+        <activity android:name=".activity.ChargeListActivity" />
+        <activity android:name=".activity.OprAndNextActivity"></activity>
     </application>
 
 </manifest>
