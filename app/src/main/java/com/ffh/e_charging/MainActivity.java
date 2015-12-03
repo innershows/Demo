@@ -2,7 +2,6 @@ package com.ffh.e_charging;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -33,10 +32,9 @@ import com.ffh.e_charging.Listener.OnFetchDataListener;
 import com.ffh.e_charging.activity.AppointStationActivity;
 import com.ffh.e_charging.activity.ChargeListActivity;
 import com.ffh.e_charging.activity.NavActivity;
+import com.ffh.e_charging.activity.StationDetailActivity;
 import com.ffh.e_charging.adapter.GalleryAdapter;
 import com.ffh.e_charging.base.BaseActivity;
-import com.ffh.e_charging.fragment.SecondFragment;
-import com.ffh.e_charging.fragment.ThirdFragment;
 import com.ffh.e_charging.model.AppointEntity;
 import com.ffh.e_charging.model.Stations;
 import com.ffh.e_charging.utils.API;
@@ -90,7 +88,9 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
     //数据
     private Stations stations;
     private AMapLocation aLocation;
-    private LatLng latLng;
+
+
+    public static LatLng latLng;
     private GalleryAdapter adapter;
 
 
@@ -292,7 +292,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
                             public void onFail(int respCode, String data) {
                                 System.out.println("=====>" + respCode);
                                 System.out.println("=====>" + data);
-                                st(data);
+                                st_e(data);
                             }
                         }, params);
 
@@ -339,12 +339,21 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
             case R.id.station_use:
                 //使用
 
-                Intent intent3 = new Intent(this, ChargeListActivity.class);
-                intent3.putExtra("station", stations.getContent().get(Integer.parseInt(v.getTag() + "")));
-                startActivity(intent3);
+                intent = new Intent(this, ChargeListActivity.class);
+                intent.putExtra("station", stations.getContent().get(Integer.parseInt(v.getTag() + "")));
+                startActivity(intent);
                 break;
 
+            case R.id.station_name:
+                intent = new Intent(this, StationDetailActivity.class);
+
+                intent.putExtra("station", stations.getContent().get(Integer.parseInt(v.getTag() + "")));
+
+                startActivity(intent);
+
+                break;
         }
+
 
     }
 
@@ -352,12 +361,12 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
     @Override
     public void init() {
 
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(null);
-        fragments.add(new SecondFragment());
-        fragments.add(new ThirdFragment());
-        tabButtom.setMapView(flMapContainer);
-        //tabButtom.setFragments(getFragmentManager(), fragments, R.id.fl_container);
+//        ArrayList<Fragment> fragments = new ArrayList<>();
+//        fragments.add(null);
+//        fragments.add(new SecondFragment());
+//        fragments.add(new ThirdFragment());
+//        tabButtom.setMapView(flMapContainer);
+//        //tabButtom.setFragments(getFragmentManager(), fragments, R.id.fl_container);
 
     }
 
@@ -426,7 +435,6 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
             String[] split = lonLat.split(",");
 
             MarkerOptions options = new MarkerOptions();
-
 
             options.title(entity.getStationName());
 

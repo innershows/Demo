@@ -2,7 +2,12 @@ package com.ffh.e_charging.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.ffh.e_charging.model.ErrorMsg;
+import com.ffh.e_charging.utils.PreferenceUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +22,16 @@ public abstract class BaseActivity extends Activity {
 
     protected static List<Activity> activities = new ArrayList<>();
 
+
+    protected String token;
+
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         activities.add(this);
         super.onCreate(savedInstanceState);
+
+        token = PreferenceUtils.getString("token", "");
+
         setContentView(initView());
         ButterKnife.bind(this);
         initMap(savedInstanceState);
@@ -54,6 +65,25 @@ public abstract class BaseActivity extends Activity {
      * @param content
      */
     protected void st(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return;
+        }
+
+
         Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 显示Toast
+     *
+     * @param result
+     */
+    protected void st_e(String result) {
+        ErrorMsg errorMsg = new Gson().fromJson(result, ErrorMsg.class);
+        if (errorMsg != null && !TextUtils.isEmpty(errorMsg.getErrorMsg())) {
+            Toast.makeText(this, errorMsg.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

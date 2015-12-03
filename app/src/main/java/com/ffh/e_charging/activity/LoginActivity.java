@@ -68,13 +68,14 @@ public class LoginActivity extends BaseActivity {
                             Gson gson = new Gson();
                             User user = gson.fromJson(result, User.class);
 
-                            PreferenceUtils.put("token", user.getToken());
+                            PreferenceUtils.put("token", user.getToken() + "");
                             PreferenceUtils.put("email", user.getEmail() + "");
-                            PreferenceUtils.put("mobile", user.getMobile());
+                            PreferenceUtils.put("mobile", user.getMobile() + "");
                             PreferenceUtils.put("nickname", user.getNickname() + "");
                             PreferenceUtils.put("headimgurl", user.getHeadimgurl() + "");
                             PreferenceUtils.put("registerDate", user.getRegisterDate());
-                            PreferenceUtils.put("sex", user.getSex());
+                            PreferenceUtils.put("balance", user.getBalance() + "");
+                            PreferenceUtils.put("sex", user.getSex() + "");
                             PreferenceUtils.put("password", params.get("password") + "");
 
                             finish();
@@ -82,17 +83,17 @@ public class LoginActivity extends BaseActivity {
                             PreferenceUtils.put("isLogin", true);
 
 
-                            Net.get(API.USER_INFO_DETAIL, new OnFetchDataListener() {
-                                @Override
-                                public void onSuccess(String result) {
-
-                                }
-
-                                @Override
-                                public void onFail(int respCode, String data) {
-
-                                }
-                            });
+//                            Net.get(API.USER_INFO_DETAIL, new OnFetchDataListener() {
+//                                @Override
+//                                public void onSuccess(String result) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onFail(int respCode, String data) {
+//
+//                                }
+//                            });
 //                            Log.i("info", result);
 
                             st("登陆成功");
@@ -103,6 +104,7 @@ public class LoginActivity extends BaseActivity {
                             if (respCode == 400) {
                                 tishiyu.setVisibility(View.VISIBLE);
                             }
+                            st_e(data);
                         }
                     }, params);
                 }

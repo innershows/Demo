@@ -6,9 +6,14 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
+import com.ffh.e_charging.MainActivity;
 import com.ffh.e_charging.R;
 import com.ffh.e_charging.base.EBaseAdapter;
 import com.ffh.e_charging.model.Stations;
+
+import java.text.DecimalFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,16 +62,34 @@ public class GalleryAdapter extends EBaseAdapter<Stations.ContentEntity> {
         Stations.ContentEntity item = getItem(position);
 
         holder.stationName.setText(item.getStationName());
-        holder.stationDistance.setText(item.getStationDist() + "");
-        holder.stationAddress.setText(item.getAddr());
-        holder.stationCount.setText(item.getRapidChargers() + "");
 
+        holder.stationAddress.setText(item.getAddr());
+        holder.stationCount.setText("充电桩数：" + (item.getRapidChargers() + item.getSlowChargers()) + "");
+
+        String[] split = item.getLonLat().split(",");
+
+
+        LatLng end = new LatLng(
+                Double.parseDouble(split[1]),
+                Double.parseDouble(split[0]));
+
+
+        float v = AMapUtils.calculateLineDistance(MainActivity.latLng, end);
+
+
+        String format = new DecimalFormat("#.00").format(v / 1000);
+
+
+        holder.stationDistance.setText(format + " km");
 //        holder.stationRating.setRating(());
 
         holder.stationBook.setTag(position);
         holder.stationGps.setTag(position);
         holder.stationUse.setTag(position);
+        holder.stationName.setTag(position);
 
+
+        holder.stationName.setOnClickListener(this.bookListener);
         holder.stationBook.setOnClickListener(this.bookListener);
         holder.stationGps.setOnClickListener(this.navListener);
         holder.stationUse.setOnClickListener(this.useListener);

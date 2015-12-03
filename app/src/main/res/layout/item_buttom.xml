@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -7,7 +7,8 @@
     android:paddingBottom="5dp"
     android:paddingTop="5dp">
 
-    <RadioButton
+    <TextView
+        android:id="@+id/tab_find"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -18,7 +19,8 @@
         android:text="寻桩"
         android:textColor="@color/myRed" />
 
-    <RadioButton
+    <TextView
+        android:id="@+id/tab_status"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -28,7 +30,8 @@
         android:text="状态"
         android:textColor="@color/myRed" />
 
-    <RadioButton
+    <TextView
+        android:id="@+id/tab_mine"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -37,4 +40,4 @@
         android:gravity="center"
         android:text="我的"
         android:textColor="@color/myRed" />
-</RadioGroup>
+</LinearLayout>

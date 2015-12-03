@@ -58,11 +58,6 @@
             android:name=".MyIntentService"
             android:exported="false" />
 
-        <receiver
-            android:name=".MyReceiver"
-            android:enabled="true"
-            android:exported="false" />
-
         <activity
             android:name=".activity.MineActivity"
             android:launchMode="singleTask" />
@@ -70,7 +65,9 @@
             android:name=".activity.StatusActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activity.ChargeListActivity" />
-        <activity android:name=".activity.OprAndNextActivity"></activity>
+        <activity android:name=".activity.OprAndNextActivity" />
+        <activity android:name=".activity.ModifyUserInfoActivity" />
+        <activity android:name=".activity.ModifyPwdActivity"></activity>
     </application>
 
 </manifest>

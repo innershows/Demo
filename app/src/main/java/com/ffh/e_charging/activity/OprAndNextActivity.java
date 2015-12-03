@@ -9,14 +9,21 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ffh.e_charging.Listener.OnFetchDataListener;
 import com.ffh.e_charging.R;
 import com.ffh.e_charging.base.BaseActivity;
 import com.ffh.e_charging.model.ChargeList;
+import com.ffh.e_charging.model.SyncOrder;
+import com.ffh.e_charging.utils.API;
+import com.ffh.e_charging.utils.Net;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 
@@ -39,8 +46,21 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
     ImageView ivFore;
     @Bind(R.id.iv_ani)
     RelativeLayout ivAni;
+    @Bind(R.id.ll_first)
+    LinearLayout llFirst;
+    @Bind(R.id.park_time)
+    TextView parkTime;
+    @Bind(R.id.park_price)
+    TextView parkPrice;
+    @Bind(R.id.ll_second)
+    RelativeLayout llSecond;
     private RotateAnimation animation;
+    private ChargeList entity;
+    private SyncOrder order;
 
+    private String stationName;
+    private String chargeName;
+    private String chargeId;
 
     @Override
     public int initView() {
@@ -50,14 +70,46 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
     @Override
     public void init() {
 
-        Intent intent = getIntent();
 
-        ChargeList entity = (ChargeList) intent.getSerializableExtra("entity");
+        getDataFromIntent();
+
+
+        initViewPageAndRadioGroup();
+    }
+
+    private void getDataFromIntent() {
+
+
+        Intent intent = getIntent();
+        entity = (ChargeList) intent.getSerializableExtra("entity");
+        order = (SyncOrder) intent.getSerializableExtra("entity2");
+
+
+        if (entity != null) {
+            stationName = entity.getChargerName();
+            chargeName = entity.getChargerName();
+            chargeId = entity.getChargerId();
+        } else if (order != null) {
+            stationName = order.getStationName();
+            chargeName = order.getAlias();
+            chargeId = order.getCsno();
+        }
+    }
+
+
+    private void initViewPageAndRadioGroup() {
+
+        ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 ((RadioButton) radioGroup.getChildAt(position)).setChecked(true);
+                if (position == 0) {
+                    tvType.setText("停车");
+                } else {
+                    tvType.setText("充电");
+                }
             }
         });
         radioGroup.setOnCheckedChangeListener(this);
@@ -73,7 +125,7 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
             }
 
             @Override
-            public Object instantiateItem(ViewGroup container, int position) {
+            public Object instantiateItem(ViewGroup container, final int position) {
                 ImageView iv = new ImageView(getApplicationContext());
 
                 if (position == 0) {
@@ -89,25 +141,71 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
                 iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        viewPager.setVisibility(View.GONE);
-                        radioGroup.setVisibility(View.INVISIBLE);
 
 
-                        ivAni.setVisibility(View.VISIBLE);
+                        HashMap params = new HashMap();
+                        params.put("token", token);
+                        params.put("chargerId", chargeId);
+                        Net.post(API.START_CHARGE, new OnFetchDataListener() {
+                            @Override
+                            public void onSuccess(String result) {
 
-                        if (animation == null) {
-                            animation = new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF,
-                                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                                st(result);
 
-                            animation.setDuration(3000);//设置动画持续时间
-                            animation.setInterpolator(new LinearInterpolator());//不停顿
-                            animation.setRepeatCount(-1);//重复次数
-                        }
-                        ivFore.setAnimation(animation);
-                        ivFore.startAnimation(animation);
+                                viewPager.setVisibility(View.GONE);
+                                radioGroup.setVisibility(View.INVISIBLE);
+
+                                llFirst.setVisibility(View.GONE);
+                                llSecond.setVisibility(View.VISIBLE);
+
+                                ivAni.setVisibility(View.VISIBLE);
+
+                                if (position == 0) {
+                                    ivBg.setImageResource(R.drawable.stop_empty);
+                                } else {
+                                    ivBg.setImageResource(R.drawable.start_charge);
+                                }
+
+                                if (animation == null) {
+                                    animation = new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF,
+                                            0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+                                    animation.setDuration(3000);//设置动画持续时间
+                                    animation.setInterpolator(new LinearInterpolator());//不停顿
+                                    animation.setRepeatCount(-1);//重复次数
+                                }
+                                ivFore.setAnimation(animation);
+                                ivFore.startAnimation(animation);
+                            }
+
+                            @Override
+                            public void onFail(int respCode, String data) {
+                                st_e(data);
+                            }
+                        }, params);
+
+//                        viewPager.setVisibility(View.GONE);
+//                        radioGroup.setVisibility(View.INVISIBLE);
+//
+//
+//                        ivAni.setVisibility(View.VISIBLE);
+//
+//
+//                        if (animation == null) {
+//                            animation = new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF,
+//                                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//
+//                            animation.setDuration(3000);//设置动画持续时间
+//                            animation.setInterpolator(new LinearInterpolator());//不停顿
+//                            animation.setRepeatCount(-1);//重复次数
+//                        }
+//                        ivFore.setAnimation(animation);
+//                        ivFore.startAnimation(animation);
 
                     }
                 });
+
+
                 container.addView(iv);
 
                 return iv;
@@ -120,6 +218,7 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
         });
     }
 
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         for (int i = 0; i < group.getChildCount(); i++) {
@@ -130,4 +229,13 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        llFirst.setVisibility(View.VISIBLE);
+        llSecond.setVisibility(View.GONE);
+
+    }
 }

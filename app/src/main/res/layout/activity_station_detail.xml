@@ -41,22 +41,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/sd_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="停车场" />
+                android:text="停车场"
+                android:textColor="@color/bigtext_color"
+                android:textSize="16sp" />
 
 
             <TextView
                 android:id="@+id/sd_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/location_detail"
                 android:gravity="right|center_vertical"
-                android:text="上海路" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="上海路"
+                android:textColor="@color/middletext_color" />
 
             <View
 
@@ -69,9 +75,12 @@
                 android:id="@+id/sd_address_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/home_detail"
                 android:gravity="right|center_vertical"
-                android:text="什么地方" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="什么地方"
+                android:textColor="@color/middletext_color" />
 
             <View
                 android:layout_width="match_parent"
@@ -83,9 +92,12 @@
                 android:id="@+id/st_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/charge_detail"
                 android:gravity="right|center_vertical"
-                android:text="几个摊位" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="几个摊位"
+                android:textColor="@color/middletext_color" />
         </LinearLayout>
 
 
@@ -94,22 +106,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@android:color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="收费标准" />
+                android:text="收费标准"
+                android:textColor="@color/bigtext_color"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/sd_charge_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/charge_price_detail"
                 android:gravity="right|center_vertical"
-                android:text="什么地方\nfdafsfas" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="什么地方\nfdafsfas"
+                android:textColor="@color/middletext_color" />
 
             <View
                 android:layout_width="match_parent"
@@ -120,15 +137,13 @@
                 android:id="@+id/sd_stop_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/park_detail"
                 android:gravity="right|center_vertical"
-                android:text="什么地方\nfdafsfas" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="什么地方\nfdafsfas"
+                android:textColor="@color/middletext_color" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider" />
         </LinearLayout>
 
         <LinearLayout
@@ -136,16 +151,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@android:color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/sd_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/phone_detail"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/phone_detail"
                 android:gravity="right|center_vertical"
-                android:text="什么地方\nfdafsfas" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="什么地方\nfdafsfas"
+                android:textColor="@color/middletext_color" />
 
             <View
                 android:layout_width="match_parent"
@@ -156,18 +176,22 @@
                 android:id="@+id/sd_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/star_all"
+                android:drawableLeft="@drawable/write_detail"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/xuanze"
                 android:gravity="right|center_vertical"
-                android:text="什么地方\nfdafsfas" />
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="什么地方\nfdafsfas"
+                android:textColor="@color/middletext_color" />
 
 
         </LinearLayout>
 
 
         <Gallery
+            android:id="@+id/gallery_detail"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content" />
     </LinearLayout>
 

@@ -2,7 +2,6 @@ package com.ffh.e_charging.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -10,21 +9,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ffh.e_charging.Listener.OnFetchDataListener;
-import com.ffh.e_charging.MyIntentService;
 import com.ffh.e_charging.MyReceiver;
 import com.ffh.e_charging.R;
 import com.ffh.e_charging.base.BaseActivity;
-import com.ffh.e_charging.model.AppointEntity;
-import com.ffh.e_charging.model.Stations;
+import com.ffh.e_charging.model.SyncOrder;
 import com.ffh.e_charging.utils.API;
+import com.ffh.e_charging.utils.CalenderUtils;
 import com.ffh.e_charging.utils.Net;
 import com.ffh.e_charging.utils.PreferenceUtils;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 
 import butterknife.Bind;
 
-public class AppointStationActivity extends BaseActivity {
+/**
+ * 0x01
+ * 故障状态
+ * 0x02
+ * 空闲状态
+ * 0x03
+ * 充电状态
+ * 0x04
+ * 停车状态
+ * 0x05*
+ * 预约状态
+ * 0x06
+ * <p/>
+ * 维护状态
+ */
+public class AppointStationActivity extends BaseActivity implements OnFetchDataListener {
 
     @Bind(R.id.tv_name)
     TextView tvName;
@@ -38,9 +52,11 @@ public class AppointStationActivity extends BaseActivity {
     Button btnArrived;
     @Bind(R.id.number_count_down)
     TextView numberCountDown;
-    private int stationId;
-    private Stations.ContentEntity entity;
-    private AppointEntity appointEntity;
+    private SyncOrder syncOrder;
+
+
+    private MyReceiver receiver = new MyReceiver();
+    private int culateMinute;
 
     @Override
     public int initView() {
@@ -51,105 +67,106 @@ public class AppointStationActivity extends BaseActivity {
 
     @Override
     public void init() {
-        Intent intent = getIntent();
-        try {
-            entity = (Stations.ContentEntity) intent.getSerializableExtra("station");
-            appointEntity = (AppointEntity) intent.getSerializableExtra("station_detail");
-
-            MyIntentService.appointEntity = appointEntity;
-            MyIntentService.entity = entity;
 
 
-        } catch (Exception e) {
-            appointEntity = MyIntentService.appointEntity;
-            entity = MyIntentService.entity;
-        }
+        //每一次进来都获取新的数据，保持统一性
+        downloadData();
 
-
-        MyIntentService.currentMinute = appointEntity.getRetain();
-        appointContent.setText(Html.fromHtml("已成功为你在" + entity.getStationName() + "预约了<font color='#FF6600'>" + appointEntity.getStationName() + "</font>，将为你保留60分钟" +
-                "请在预定时间内到达并使用。"));
-
-
-        receiver.setCallBack(new MyReceiver.CallBack() {
-            @Override
-            public void onFetch(int count) {
-                numberCountDown.setText(MyIntentService.currentMinute + "");
-            }
-        });
-
+//        receiver.setCallBack(new MyReceiver.CallBack() {
+//            @Override
+//            public void onFetch(int count) {
+//                System.out.println("====>count" + count);
+//                numberCountDown.setText(count + "");
+//            }
+//        });
 
     }
 
+    private void downloadData() {
+        String url = String.format(API.SYNC_ORDER_GET, PreferenceUtils.getString("token", ""));
+        System.out.println("===>url" + url);
+        Net.get(url, this);
+    }
 
-    private MyReceiver receiver = new MyReceiver();
 
     @Override
     protected void onResume() {
         super.onResume();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("com.count_down");
+//        registerReceiver(receiver, filter);
 
 
-        if (hasData) {
-            if (MyIntentService.isStarted) {
-                numberCountDown.setText(MyIntentService.currentMinute + "");
-            } else {
-                Intent service = new Intent(this, MyIntentService.class);
-                service.putExtra("retain", appointEntity.getRetain());
-                startService(service);
-            }
-
-            registerReceiver(receiver, new IntentFilter());
-        }
+//        if (hasData) {
+//            if (MyIntentService.isStarted) {
+//                numberCountDown.setText(MyIntentService.currentMinute + "");
+//            } else {
+//                Intent service = new Intent(this, MyIntentService.class);
+//                service.putExtra("retain", appointEntity.getRetain());
+//                startService(service);
+//            }
+//
+//        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (hasData) {
-            unregisterReceiver(receiver);
-        }
+//        unregisterReceiver(receiver);
     }
 
     public void onClick(View v) {
+
+
+        if (syncOrder == null) {
+            return;
+        }
         switch (v.getId()) {
             case R.id.btn_cancel:
+
+
                 HashMap params = new HashMap();
                 params.put("token", PreferenceUtils.getString("token", ""));
                 Net.post(API.APPOINT_CANCEL, new OnFetchDataListener() {
                     @Override
                     public void onSuccess(String result) {
                         st("取消成功");
+                        finish();
                     }
 
                     @Override
                     public void onFail(int respCode, String data) {
-                        st(data);
+                        st_e(data);
                     }
                 }, params);
 
                 break;
             case R.id.btn_arrived:
+
                 HashMap params1 = new HashMap();
                 params1.put("token", PreferenceUtils.getString("token", ""));
 
                 /**
                  * 服务类型:1 停车,2 充电
                  */
-                params1.put("serviceType", /**/1);
+                params1.put("serviceType", syncOrder.getType());
 
-                params1.put("chargerId", entity.getStationId());
-
+                params1.put("chargerId", syncOrder.getCsno());
 
 
                 Net.post(API.APPOINT_ARRIVED, new OnFetchDataListener() {
                     @Override
                     public void onSuccess(String result) {
+                        st(result);
 
+                        Intent intent = new Intent(AppointStationActivity.this, OprAndNextActivity.class);
+                        intent.putExtra("entity2", syncOrder);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onFail(int respCode, String data) {
-
+                        st_e(data);
                     }
                 }, params1);
 
@@ -166,5 +183,55 @@ public class AppointStationActivity extends BaseActivity {
         }
         System.exit(0);
         super.onBackPressed();
+    }
+
+    @Override
+    public void onSuccess(String result) {
+        System.out.println("====>result" + result);
+        syncOrder = new Gson().fromJson(result, SyncOrder.class);
+
+        if (syncOrder != null) {
+//            if (MyIntentService.isStarted) {
+            culateMinute = syncOrder.getRetain() - CalenderUtils.culateMinute(syncOrder.getStartTime(), syncOrder.getNowTime());
+
+            numberCountDown.setText(culateMinute + "");
+
+            appointContent.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    if (culateMinute == 0) {
+                        //TODO 预约时间已到
+                        st("预约时间已过");
+                        finish();
+                        return;
+                    }
+                    culateMinute--;
+
+                    if (appointContent != null) {
+
+                        numberCountDown.setText(culateMinute + "");
+
+                        appointContent.postDelayed(this, 1000 * 60);
+                    }
+                }
+            }, 1000 * 60);
+//            } else {
+//                Intent service = new Intent(this, MyIntentService.class);
+//                service.putExtra("retain", syncOrder.getRetain());
+//                startService(service);
+//            }
+
+            appointContent.setText(Html.fromHtml("已成功为你在" + syncOrder.getStationName() + "预约了<font color='#FF6600'>" + syncOrder.getAlias() + "</font>，将为你保留" + syncOrder.getRetain() + "分钟" +
+                    "请在预定时间内到达并使用。"));
+        }
+
+        st(result);
+    }
+
+    @Override
+    public void onFail(int respCode, String data) {
+        System.out.println("====>data" + data);
+        st_e(data);
     }
 }

@@ -16,9 +16,11 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
+import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -157,6 +159,45 @@ public class Net {
 
             @Override
             public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+
+    public static void uploadFile(String url, final OnFetchDataListener listener, final File file) {
+        RequestParams requestParams = new RequestParams(url);
+
+
+        requestParams.addBodyParameter("file", file);
+
+        requestParams.addHeader("Content-Type", "multipart/form-data");
+        // map.put("Authorization", ");
+        requestParams.setHeader("Authorization", "Basic " + PreferenceUtils.getString("accessToken", ""));
+
+        requestParams.setMethod(HttpMethod.POST);
+
+        //requestParams.setHeader("mimeType" , "image/jpeg");
+
+
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                listener.onSuccess(s);
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                listener.onFail(400, throwable.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException e) {
 
             }
 

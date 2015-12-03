@@ -30,48 +30,92 @@
             android:src="@drawable/back" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_station_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="科技大厦停车场025车位"
-        android:textSize="16sp" />
-
-
-    <View
+    <LinearLayout
+        android:id="@+id/ll_first"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/divider"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        />
 
-    <TextView
-        android:id="@+id/tv_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="停车"
-        android:textColor="@color/myRed"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_station_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/charge_detail"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/three_point"
+            android:padding="10dp"
+            android:text="科技大厦停车场025车位"
+            android:textSize="16sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/divider"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/small_park"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="停车"
+            android:textColor="@color/myRed"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/ll_second"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/park_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/small_park"
+            android:drawablePadding="5dp"
+            android:text="已停车36分钟" />
+
+        <TextView
+            android:id="@+id/park_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:drawableLeft="@drawable/money"
+            android:drawablePadding="5dp"
+            android:text="费用6元" />
+
+
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        />
-
+        android:layout_weight="1" />
 
     <RelativeLayout
+        android:id="@+id/iv_ani"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
-        android:id="@+id/iv_ani"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_bg"
@@ -100,11 +144,14 @@
 
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_rb" />
 
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:button="@drawable/selector_rb" />
 
 
     </RadioGroup>

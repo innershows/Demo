@@ -3,9 +3,6 @@ package com.ffh.e_charging;
 import android.app.IntentService;
 import android.content.Intent;
 
-import com.ffh.e_charging.model.AppointEntity;
-import com.ffh.e_charging.model.Stations;
-
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -21,9 +18,6 @@ public class MyIntentService extends IntentService {
     public static int currentMinute = 59;
 
 
-
-    public static Stations.ContentEntity entity;
-    public static AppointEntity appointEntity;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -42,7 +36,7 @@ public class MyIntentService extends IntentService {
         while (currentMinute > 0) {
             try {
                 //一分钟
-                Thread.sleep(1000 * 60);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
