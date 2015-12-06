@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -44,6 +47,8 @@ import com.ffh.e_charging.view.ButtomTabView;
 import com.ffh.e_charging.zxing.activity.CaptureActivity;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,6 +82,8 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
     View lineDivider;
     @Bind(R.id.gallery)
     Gallery gallery;
+    @Bind(R.id.et_search)
+    EditText etSearch;
     private AMap aMap;
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
@@ -122,6 +129,11 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         super.onResume();
         mapView.onResume();
 
+
+        if (gallery.getVisibility() == View.VISIBLE) {
+            tabButtom.setVisibility(View.VISIBLE);
+            gallery.setVisibility(View.GONE);
+        }
 
     }
 
@@ -360,6 +372,42 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
 
     @Override
     public void init() {
+
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                String s = v.getText().toString();
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+
+                    try {
+                        Net.get(API.STATIONS_GET + "?name=" + URLEncoder.encode(s, "UTF-8"), new OnFetchDataListener() {
+                            @Override
+                            public void onSuccess(String result) {
+                                st(result);
+                                stations = new Gson().fromJson(result, Stations.class);
+                                if (stations == null || stations.getContent().isEmpty()) {
+                                    st("没有结果");
+                                    return;
+                                }
+                                aMap.clear();
+                                addMarker();
+                            }
+
+                            @Override
+                            public void onFail(int respCode, String data) {
+                                st_e(data);
+                            }
+                        });
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return false;
+            }
+        });
 
 //        ArrayList<Fragment> fragments = new ArrayList<>();
 //        fragments.add(null);

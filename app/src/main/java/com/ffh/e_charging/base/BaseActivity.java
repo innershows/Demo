@@ -1,5 +1,6 @@
 package com.ffh.e_charging.base;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +30,11 @@ public abstract class BaseActivity extends Activity {
     protected final void onCreate(Bundle savedInstanceState) {
         activities.add(this);
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
 
         token = PreferenceUtils.getString("token", "");
 

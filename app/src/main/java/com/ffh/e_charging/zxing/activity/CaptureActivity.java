@@ -13,8 +13,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.ffh.e_charging.R;
@@ -45,7 +43,7 @@ public class CaptureActivity extends Activity implements Callback {
     private boolean playBeep;
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
-    private Button cancelScanButton;
+    // private Button cancelScanButton;
 
     /**
      * Called when the activity is first created.
@@ -57,7 +55,7 @@ public class CaptureActivity extends Activity implements Callback {
         //ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-        cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
+        // cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
     }
@@ -85,13 +83,17 @@ public class CaptureActivity extends Activity implements Callback {
         vibrate = true;
 
         //quit the scan view
-        cancelScanButton.setOnClickListener(new OnClickListener() {
+        //cancelScanButton.setOnClickListener(new OnClickListener() {
+//
+    }
 
-            @Override
-            public void onClick(View v) {
-                CaptureActivity.this.finish();
-            }
-        });
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_input_id:
+
+                break;
+        }
     }
 
     @Override

@@ -61,7 +61,7 @@ public class RegisterActivity extends BaseActivity {
 
                         @Override
                         public void onFail(int respCode, String data) {
-                            st(data);
+                            st_e(data);
                         }
                     });
                 }
@@ -74,12 +74,12 @@ public class RegisterActivity extends BaseActivity {
                     Net.post(API.REGISTER_POST, new OnFetchDataListener() {
                         @Override
                         public void onSuccess(String result) {
-                            st(result);
+                            st("注册成功!");
                         }
 
                         @Override
                         public void onFail(int respCode, String data) {
-                            st(data);
+                            st_e(data);
                         }
                     }, map);
                 }

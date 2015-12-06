@@ -52,6 +52,9 @@ public class Net {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
 
+                if (networkResponse == null){
+                    return;
+                }
                 //验证错误
                 if (networkResponse.statusCode == 401) {
                     getAccessKey();
@@ -134,6 +137,7 @@ public class Net {
         x.http().get(new RequestParams(API.ACCESS_TOKEN_GET), new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                System.out.println("====>result" + result);
                 try {
                     JSONObject obj = new JSONObject(result);
 
