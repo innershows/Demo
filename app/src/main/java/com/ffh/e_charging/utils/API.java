@@ -24,4 +24,6 @@ public class API {
     public static final String STOP_CHARGE = DOMAIN + "chargers/stop";
     public static final String UPDATE_USER_INFO = DOMAIN + "users/%s";
     public static final String UPLOAD_AVATAR = DOMAIN + "users/%s/avatar";
+    public static final String SCDN_SCAN_GET = DOMAIN + "chargers/%s";
+    public static final String EXPENSES_RECODES_POST = DOMAIN + "expenses?token=%s";
 }

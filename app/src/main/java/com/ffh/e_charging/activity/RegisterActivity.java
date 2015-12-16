@@ -121,4 +121,10 @@ public class RegisterActivity extends BaseActivity {
 
         return true;
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 }

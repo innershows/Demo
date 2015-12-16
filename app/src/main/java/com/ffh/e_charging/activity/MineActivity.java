@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ffh.e_charging.Listener.OnFetchDataListener;
+import com.ffh.e_charging.MainActivity;
 import com.ffh.e_charging.R;
 import com.ffh.e_charging.base.BaseActivity;
 import com.ffh.e_charging.model.User;
@@ -156,6 +157,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 if (TextUtils.isEmpty(token)) {
                     return;
                 }
+
+                startActivity(new Intent(this, ModifyPwdActivity.class));
                 break;
 
             case R.id.rl_zhanghuyue:
@@ -167,6 +170,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.youhuiquan:
                 //优惠券
+                //TODO 优惠券
                 break;
             case R.id.zhanghujilu:
                 //user record
@@ -174,6 +178,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 if (TextUtils.isEmpty(token)) {
                     return;
                 }
+
+                startActivity(new Intent(this, UserRecodeActivity.class));
                 break;
 
             case R.id.gongxiangdianzhuang:
@@ -197,6 +203,14 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 if (TextUtils.isEmpty(token)) {
                     return;
                 }
+
+                //充值
+                PreferenceUtils.reset(this);
+
+
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+            default:
                 break;
         }
     }
@@ -210,6 +224,11 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         }
         System.exit(0);
         super.onBackPressed();
+    }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
     }
 
 

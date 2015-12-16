@@ -92,7 +92,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
 
             case R.id.choose_sex:
                 // choose gender.
-                st("fuck");
+                // st("fuck");
                 if (gender != 2) {
                     tvBoy.setBackgroundResource(R.drawable.switch_hot_circle);
                     tvGirl.setBackgroundColor(Color.TRANSPARENT);
@@ -195,5 +195,11 @@ public class ModifyUserInfoActivity extends BaseActivity {
 
 
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 
 }

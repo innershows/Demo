@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.ffh.e_charging.model.ErrorMsg;
+import com.ffh.e_charging.model.ErrorMsg2;
 import com.ffh.e_charging.utils.PreferenceUtils;
 import com.google.gson.Gson;
 
@@ -91,5 +92,12 @@ public abstract class BaseActivity extends Activity {
         }
 
 
+    }
+
+    protected void st_e2(String result) {
+        ErrorMsg2 errorMsg = new Gson().fromJson(result, ErrorMsg2.class);
+        if (errorMsg != null && !TextUtils.isEmpty(errorMsg.getData())) {
+            Toast.makeText(this, errorMsg.getData(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

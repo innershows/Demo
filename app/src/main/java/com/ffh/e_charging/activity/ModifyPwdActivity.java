@@ -25,7 +25,7 @@ public class ModifyPwdActivity extends BaseActivity {
     @Bind(R.id.et_sure)
     EditText etSure;
     @Bind(R.id.btn_send_sms)
-    Button btnSendSms;
+    TextView btnSendSms;
     @Bind(R.id.ver_tishiyu)
     TextView verTishiyu;
     @Bind(R.id.et_password)
@@ -76,4 +76,10 @@ public class ModifyPwdActivity extends BaseActivity {
         String phone = etNumber.getText().toString().trim();
         return !TextUtils.isEmpty(phone);
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 }

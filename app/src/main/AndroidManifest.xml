@@ -68,7 +68,8 @@
         <activity android:name=".activity.OprAndNextActivity" />
         <activity android:name=".activity.ModifyUserInfoActivity" />
         <activity android:name=".activity.ModifyPwdActivity" />
-        <activity android:name=".activity.ConfirmChargeIdActivity"></activity>
+        <activity android:name=".activity.ConfirmChargeIdActivity" />
+        <activity android:name=".activity.UserRecodeActivity"></activity>
     </application>
 
 </manifest>

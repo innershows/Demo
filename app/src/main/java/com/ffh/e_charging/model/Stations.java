@@ -86,6 +86,15 @@ public class Stations extends Entity {
         private int rapidChargers;
         private int slowChargers;
         private Object stationImg;
+        private int type;
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
 
         public void setStationId(int stationId) {
             this.stationId = stationId;

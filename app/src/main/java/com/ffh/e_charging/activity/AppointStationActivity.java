@@ -83,9 +83,14 @@ public class AppointStationActivity extends BaseActivity implements OnFetchDataL
     }
 
     private void downloadData() {
-        String url = String.format(API.SYNC_ORDER_GET, PreferenceUtils.getString("token", ""));
+        String url = String.format(API.SYNC_ORDER_GET, token);
         System.out.println("===>url" + url);
         Net.get(url, this);
+    }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
     }
 
 
@@ -144,7 +149,7 @@ public class AppointStationActivity extends BaseActivity implements OnFetchDataL
             case R.id.btn_arrived:
 
                 HashMap params1 = new HashMap();
-                params1.put("token", PreferenceUtils.getString("token", ""));
+                params1.put("token", token);
 
                 /**
                  * 服务类型:1 停车,2 充电
@@ -152,7 +157,6 @@ public class AppointStationActivity extends BaseActivity implements OnFetchDataL
                 params1.put("serviceType", syncOrder.getType());
 
                 params1.put("chargerId", syncOrder.getCsno());
-
 
                 Net.post(API.APPOINT_ARRIVED, new OnFetchDataListener() {
                     @Override
@@ -190,6 +194,9 @@ public class AppointStationActivity extends BaseActivity implements OnFetchDataL
         System.out.println("====>result" + result);
         syncOrder = new Gson().fromJson(result, SyncOrder.class);
 
+        //TODO 根据具体的状态，决定跳转那一个页面
+
+
         if (syncOrder != null) {
 //            if (MyIntentService.isStarted) {
             culateMinute = syncOrder.getRetain() - CalenderUtils.culateMinute(syncOrder.getStartTime(), syncOrder.getNowTime());
@@ -226,12 +233,11 @@ public class AppointStationActivity extends BaseActivity implements OnFetchDataL
                     "请在预定时间内到达并使用。"));
         }
 
-        st(result);
+        // st(result);
     }
 
     @Override
     public void onFail(int respCode, String data) {
-        System.out.println("====>data" + data);
         st_e(data);
     }
 }

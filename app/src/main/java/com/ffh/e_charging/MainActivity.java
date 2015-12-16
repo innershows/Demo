@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
 
             @Override
             public void onFail(int respCode, String data) {
-
+                st_e(data);
             }
         });
 
@@ -386,7 +386,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
                         Net.get(API.STATIONS_GET + "?name=" + URLEncoder.encode(s, "UTF-8"), new OnFetchDataListener() {
                             @Override
                             public void onSuccess(String result) {
-                                st(result);
+                                //st(result);
                                 stations = new Gson().fromJson(result, Stations.class);
                                 if (stations == null || stations.getContent().isEmpty()) {
                                     st("没有结果");
@@ -417,7 +417,6 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
 //        //tabButtom.setFragments(getFragmentManager(), fragments, R.id.fl_container);
 
     }
-
 
     //////////////定位接口方法
     @Override
@@ -492,7 +491,22 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
                     latLng);
 
             options.title(i + "");
-            options.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_test));
+
+            int chargers = entity.getSlowChargers()
+                    + entity.getRapidChargers();
+            if (chargers == 0) {
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.map_empty_charge));
+            } else if (chargers == 1) {
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.star_01));
+            } else if (chargers == 2) {
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.star_02));
+            } else if (chargers == 3) {
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.star_03));
+            } else if (chargers == 4) {
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.star_04));
+            } else {
+                options.icon(BitmapDescriptorFactory.fromResource(R.drawable.star_more_than_5));
+            }
 
             aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 
@@ -511,6 +525,10 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         lineDivider.setVisibility(View.GONE);
 
 
+        if (gallery.getVisibility() == View.GONE) {
+            gallery.setVisibility(View.VISIBLE);
+        }
+
         int position = Integer.parseInt(marker.getTitle());
 
 
@@ -519,32 +537,6 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         }
 
         gallery.setSelection(position);
-
-//        System.out.println("===marker latitude==>>" + marker.getPosition().latitude);
-//        System.out.println("===marker longitude==>>" + marker.getPosition().longitude);
-//        for (int i = 0; i < stations.getContent().size(); i++) {
-//
-//            Stations.ContentEntity entity = stations.getContent().get(i);
-//            String[] split = entity.getLonLat().split(",");
-//
-//            LatLng latLng = new LatLng(
-//                    Double.parseDouble(split[1]),
-//                    Double.parseDouble(split[0]));
-//
-//
-//            System.out.println("===point name==>>" + entity.getStationName());
-//
-//            System.out.println("===point latitude==>>" + latLng.latitude);
-//            System.out.println("===point longitude==>>" + latLng.longitude);
-//
-//            if (((latLng.latitude + latLng.longitude) - (marker.getPosition().latitude
-//                    + marker.getPosition().longitude)) < 0.001) {
-//                //如果相等
-//                st("相等");
-//                break;
-//            }
-//
-//        }
 
         return true;
     }
@@ -567,9 +559,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
 
         gallery.setSelection(position, true);
 
-
 //        gallery.setOnItemClickListener(this);
-
     }
 
     @Override

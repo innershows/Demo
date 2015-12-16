@@ -1,6 +1,7 @@
 package com.ffh.e_charging.zxing.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ffh.e_charging.R;
+import com.ffh.e_charging.activity.ConfirmChargeIdActivity;
 import com.ffh.e_charging.zxing.camera.CameraManager;
 import com.ffh.e_charging.zxing.decoding.CaptureActivityHandler;
 import com.ffh.e_charging.zxing.decoding.InactivityTimer;
@@ -91,10 +93,18 @@ public class CaptureActivity extends Activity implements Callback {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_input_id:
-
+                //跳转到另一个页面
+                Intent intent = new Intent(this, ConfirmChargeIdActivity.class);
+                startActivity(intent);
                 break;
         }
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 
     @Override
     protected void onPause() {
@@ -124,7 +134,7 @@ public class CaptureActivity extends Activity implements Callback {
         String resultString = result.getText();
         //FIXME
         if (resultString.equals("")) {
-            Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CaptureActivity.this, "扫描失败，请重试!", Toast.LENGTH_SHORT).show();
         } else {
 //			System.out.println("Result:"+resultString);
 //			Intent resultIntent = new Intent();
@@ -133,7 +143,12 @@ public class CaptureActivity extends Activity implements Callback {
 //			resultIntent.putExtras(bundle);
 //			this.setResult(RESULT_OK, resultIntent);
 
-            Toast.makeText(CaptureActivity.this, resultString, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, ConfirmChargeIdActivity.class);
+            intent.putExtra("chargeId", resultString);
+            startActivity(intent);
+            finish();
+//            Toast.makeText(CaptureActivity.this, resultString, Toast.LENGTH_SHORT).show();
         }
 //		CaptureActivity.this.finish();
     }

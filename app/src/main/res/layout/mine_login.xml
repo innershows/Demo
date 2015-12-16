@@ -27,6 +27,7 @@
                 android:textSize="16sp" />
 
             <ImageView
+                android:onClick="onBackClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -40,18 +41,20 @@
 
         <EditText
             android:id="@+id/et_number"
+            android:drawablePadding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/ic_phone"
             android:hint="请输入注册的手机号码"
             android:inputType="number"
             android:maxLength="11" />
 
         <EditText
+            android:drawablePadding="10dp"
             android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/ic_lock"
             android:hint="请输入密码"
             android:inputType="textPassword" />
 
@@ -70,6 +73,7 @@
             android:layout_margin="10dp"
             android:onClick="onClick"
             android:padding="10dp"
+            android:background="@drawable/btn_bg"
             android:text="登陆" />
 
         <RelativeLayout

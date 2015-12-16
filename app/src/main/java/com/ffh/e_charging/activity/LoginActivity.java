@@ -139,4 +139,10 @@ public class LoginActivity extends BaseActivity {
 
         return ret;
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 }

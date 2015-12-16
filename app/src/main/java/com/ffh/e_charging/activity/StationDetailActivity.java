@@ -1,6 +1,7 @@
 package com.ffh.e_charging.activity;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.Gallery;
 import android.widget.TextView;
 
@@ -52,4 +53,10 @@ public class StationDetailActivity extends BaseActivity {
         // Net.get(API.STATION_DETAIL , this);
 
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 }

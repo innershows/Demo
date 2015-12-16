@@ -11,7 +11,7 @@
         android:id="@+id/station_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/star_half"
+        android:drawableLeft="@drawable/star_galarry"
         android:drawablePadding="10dp"
         android:drawableRight="@drawable/three_point"
         android:gravity="center_vertical"
@@ -66,6 +66,7 @@
         <RatingBar
             android:id="@+id/station_rating"
             style="@style/roomRatingBar"
+            android:isIndicator="true"
             android:layout_width="wrap_content"
             android:layout_height="10dp"
             android:layout_gravity="center_vertical"

@@ -1,10 +1,12 @@
 package com.ffh.e_charging.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ffh.e_charging.Listener.OnFetchDataListener;
@@ -80,15 +82,59 @@ public class ChargeListActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onFail(int respCode, String data) {
-                st(data);
+                st_e(data);
             }
         });
     }
 
     @Override
     public void onClick(View v) {
+
+
+        final Dialog dialog = new Dialog(this, R.style.NobackDialog);
+
+
+        View view = dialog.getLayoutInflater().inflate(R.layout.dialog_appoint, null);
+
+        dialog.setContentView(view);
+
+
+        TextView tvContent = (TextView) view.findViewById(R.id.dialog_content);
+
+
+        tvContent.setText("非常抱歉，您的账户余额不足，请充值后使用");
+        view.findViewById(R.id.dialog_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        ((TextView) view.findViewById(R.id.title)).setText("提示");
+        View viewById = view.findViewById(R.id.dialog_confirm);
+        ((Button) viewById).setText("充值");
+        viewById.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+
         Intent intent = new Intent(this, OprAndNextActivity.class);
         intent.putExtra("entity", (Serializable) v.getTag());
         startActivity(intent);
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 }

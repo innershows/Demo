@@ -44,6 +44,8 @@ public class Net {
         queue.add(new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                System.out.println("===response Data success => " + response);
                 request = null;
                 listener.onSuccess(response);
             }
@@ -52,7 +54,17 @@ public class Net {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
 
-                if (networkResponse == null){
+
+                if (networkResponse == null || networkResponse.data == null) {
+                    System.out.println("====>" + "获取数据为null");
+                    return;
+                }
+                String s = new String(networkResponse.data);
+
+                System.out.println("===response Data fail => " + s);
+
+
+                if (networkResponse == null) {
                     return;
                 }
                 //验证错误
@@ -60,7 +72,7 @@ public class Net {
                     getAccessKey();
                 }
                 request = null;
-                listener.onFail(networkResponse.statusCode, new String(networkResponse.data));
+                listener.onFail(networkResponse.statusCode, s);
             }
         }) {
 

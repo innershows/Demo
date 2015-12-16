@@ -130,80 +130,38 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
 
                 if (position == 0) {
                     iv.setImageResource(R.drawable.stop_start);
+                    iv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            HashMap params = new HashMap();
+                            params.put("token", token);
+                            params.put("chargerId", chargeId);
+
+                            //TODO 开始停车
+                            //startChargeRequest(params, position);
+
+                        }
+                    });
+
                 } else {
                     iv.setImageResource(R.drawable.start_charge);
+                    iv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            HashMap params = new HashMap();
+                            params.put("token", token);
+                            params.put("chargerId", chargeId);
+
+                            startChargeRequest(params, position);
+
+                        }
+                    });
+
                 }
 
 
                 iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 iv.setTag(position);
-
-                iv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-
-                        HashMap params = new HashMap();
-                        params.put("token", token);
-                        params.put("chargerId", chargeId);
-                        Net.post(API.START_CHARGE, new OnFetchDataListener() {
-                            @Override
-                            public void onSuccess(String result) {
-
-                                st(result);
-
-                                viewPager.setVisibility(View.GONE);
-                                radioGroup.setVisibility(View.INVISIBLE);
-
-                                llFirst.setVisibility(View.GONE);
-                                llSecond.setVisibility(View.VISIBLE);
-
-                                ivAni.setVisibility(View.VISIBLE);
-
-                                if (position == 0) {
-                                    ivBg.setImageResource(R.drawable.stop_empty);
-                                } else {
-                                    ivBg.setImageResource(R.drawable.start_charge);
-                                }
-
-                                if (animation == null) {
-                                    animation = new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF,
-                                            0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-
-                                    animation.setDuration(3000);//设置动画持续时间
-                                    animation.setInterpolator(new LinearInterpolator());//不停顿
-                                    animation.setRepeatCount(-1);//重复次数
-                                }
-                                ivFore.setAnimation(animation);
-                                ivFore.startAnimation(animation);
-                            }
-
-                            @Override
-                            public void onFail(int respCode, String data) {
-                                st_e(data);
-                            }
-                        }, params);
-
-//                        viewPager.setVisibility(View.GONE);
-//                        radioGroup.setVisibility(View.INVISIBLE);
-//
-//
-//                        ivAni.setVisibility(View.VISIBLE);
-//
-//
-//                        if (animation == null) {
-//                            animation = new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF,
-//                                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//
-//                            animation.setDuration(3000);//设置动画持续时间
-//                            animation.setInterpolator(new LinearInterpolator());//不停顿
-//                            animation.setRepeatCount(-1);//重复次数
-//                        }
-//                        ivFore.setAnimation(animation);
-//                        ivFore.startAnimation(animation);
-
-                    }
-                });
 
 
                 container.addView(iv);
@@ -216,6 +174,48 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
                 container.removeView((View) object);
             }
         });
+    }
+
+    private void startChargeRequest(HashMap params, final int position) {
+        Net.post(API.START_CHARGE, new OnFetchDataListener() {
+            @Override
+            public void onSuccess(String result) {
+
+                //  st(result);
+
+                viewPager.setVisibility(View.GONE);
+                radioGroup.setVisibility(View.INVISIBLE);
+
+                llFirst.setVisibility(View.GONE);
+                llSecond.setVisibility(View.VISIBLE);
+
+                ivAni.setVisibility(View.VISIBLE);
+
+                if (position == 0) {
+                    ivBg.setImageResource(R.drawable.stop_empty);
+                } else {
+                    ivBg.setImageResource(R.drawable.start_charge);
+                }
+
+                if (animation == null) {
+                    animation = new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF,
+                            0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+                    animation.setDuration(3000);//设置动画持续时间
+                    animation.setInterpolator(new LinearInterpolator());//不停顿
+                    animation.setRepeatCount(-1);//重复次数
+                }
+                ivFore.setAnimation(animation);
+                ivFore.startAnimation(animation);
+
+
+            }
+
+            @Override
+            public void onFail(int respCode, String data) {
+                st_e(data);
+            }
+        }, params);
     }
 
 
@@ -238,4 +238,10 @@ public class OprAndNextActivity extends BaseActivity implements RadioGroup.OnChe
         llSecond.setVisibility(View.GONE);
 
     }
+
+    //模拟网络请求
+    public void onBackClick(View v) {
+        onBackPressed();
+    }
+
 }
