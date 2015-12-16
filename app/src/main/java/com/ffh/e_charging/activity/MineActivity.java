@@ -195,6 +195,12 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 if (TextUtils.isEmpty(token)) {
                     return;
                 }
+
+                startActivity(new Intent());
+
+
+
+
                 break;
 
             case R.id.tuichuzhanghu:
@@ -203,13 +209,11 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 if (TextUtils.isEmpty(token)) {
                     return;
                 }
-
-                //充值
                 PreferenceUtils.reset(this);
-
-
                 startActivity(new Intent(this, MainActivity.class));
+
                 break;
+
             default:
                 break;
         }

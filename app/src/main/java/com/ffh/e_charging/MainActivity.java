@@ -507,11 +507,8 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
             } else {
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.star_more_than_5));
             }
-
             aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-
             aMap.addMarker(options);
-
         }
     }
 
