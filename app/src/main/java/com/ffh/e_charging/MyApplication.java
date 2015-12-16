@@ -8,6 +8,8 @@ import com.ffh.e_charging.utils.PreferenceUtils;
 
 import org.xutils.x;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by innershows on 15/11/26.
  */
@@ -18,6 +20,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
 
         x.Ext.init(this);
         x.Ext.setDebug(true); // 是否输出debug日志

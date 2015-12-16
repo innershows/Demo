@@ -41,6 +41,7 @@
 
 
     <RadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -49,30 +50,45 @@
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/selector_radiobutton"
+            android:padding="5dp"
             android:text="界面不优美"
             android:textColor="@color/middletext_color" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/selector_radiobutton"
+            android:padding="5dp"
             android:text="操作不简介"
             android:textColor="@color/middletext_color" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/selector_radiobutton"
+            android:padding="5dp"
             android:text="找不到电桩"
             android:textColor="@color/middletext_color" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/selector_radiobutton"
+            android:padding="5dp"
             android:text="异常退出"
             android:textColor="@color/middletext_color" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/selector_radiobutton"
+            android:padding="5dp"
             android:text="其他"
             android:textColor="@color/middletext_color" />
     </RadioGroup>
@@ -85,6 +101,7 @@
         android:textColor="@color/middletext_color" />
 
     <EditText
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -99,6 +116,8 @@
         android:textColor="@color/middletext_color" />
 
     <Button
+        android:id="@+id/btn_commit"
+        android:onClick="btnClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

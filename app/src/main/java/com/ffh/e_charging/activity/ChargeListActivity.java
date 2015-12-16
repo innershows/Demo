@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -122,10 +123,13 @@ public class ChargeListActivity extends BaseActivity implements View.OnClickList
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-
             }
         });
 
+
+        if (TextUtils.isEmpty(token)) {
+            st("请先登陆");
+        }
 
         Intent intent = new Intent(this, OprAndNextActivity.class);
         intent.putExtra("entity", (Serializable) v.getTag());

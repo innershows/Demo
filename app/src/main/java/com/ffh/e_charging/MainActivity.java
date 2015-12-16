@@ -5,15 +5,19 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,6 +40,7 @@ import com.ffh.e_charging.activity.AppointStationActivity;
 import com.ffh.e_charging.activity.ChargeListActivity;
 import com.ffh.e_charging.activity.NavActivity;
 import com.ffh.e_charging.activity.StationDetailActivity;
+import com.ffh.e_charging.adapter.CityGridViewAdapter;
 import com.ffh.e_charging.adapter.GalleryAdapter;
 import com.ffh.e_charging.base.BaseActivity;
 import com.ffh.e_charging.model.AppointEntity;
@@ -55,6 +60,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import cn.jpush.android.api.JPushInterface;
 
 
 public class MainActivity extends BaseActivity implements LocationSource, AMapLocationListener, AMap.OnMarkerClickListener, View.OnClickListener {
@@ -84,6 +90,16 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
     Gallery gallery;
     @Bind(R.id.et_search)
     EditText etSearch;
+    @Bind(R.id.check_box)
+    CheckBox checkBox;
+    @Bind(R.id.city_gridview)
+    GridView cityGridview;
+    @Bind(R.id.city_location)
+    TextView cityLocation;
+    @Bind(R.id.city_confirm)
+    TextView cityConfirm;
+    @Bind(R.id.ll_window)
+    LinearLayout llWindow;
     private AMap aMap;
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
@@ -105,6 +121,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
     public int initView() {
         return R.layout.activity_main;
     }
+
 
     @Override
     public void initMap(Bundle bundle) {
@@ -130,12 +147,15 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         mapView.onResume();
 
 
+        JPushInterface.onResume(this);
+
         if (gallery.getVisibility() == View.VISIBLE) {
             tabButtom.setVisibility(View.VISIBLE);
             gallery.setVisibility(View.GONE);
         }
 
     }
+
 
     private void downloadData() {
 
@@ -189,6 +209,8 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
     protected void onPause() {
         super.onPause();
         mapView.onPause();
+        JPushInterface.onPause(this);
+
         deactivate();
     }
 
@@ -409,6 +431,45 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
             }
         });
 
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    llWindow.setVisibility(View.VISIBLE);
+                } else {
+                    llWindow.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        llWindow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llWindow.setVisibility(View.GONE);
+                checkBox.setChecked(false);
+            }
+        });
+
+
+        ArrayList entities = new ArrayList();
+        entities.add("杭州");
+        entities.add("北京");
+        entities.add("广州");
+        entities.add("武汉");
+        entities.add("南京");
+        entities.add("重庆");
+        entities.add("深圳");
+        entities.add("天津");
+        entities.add("厦门");
+
+        cityGridview.setAdapter(new CityGridViewAdapter(this, entities));
+
+
+        cityGridview.setHorizontalSpacing(20);
+        cityGridview.setVerticalSpacing(20);
+
 //        ArrayList<Fragment> fragments = new ArrayList<>();
 //        fragments.add(null);
 //        fragments.add(new SecondFragment());
@@ -464,6 +525,13 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
             this.aLocation = aLocation;
             mListener.onLocationChanged(this.aLocation);// 显示系统小蓝点
             System.out.println("----" + aLocation.getLatitude() + "---" + aLocation.getLongitude());
+
+            String city = aLocation.getCity();
+            if (!TextUtils.isEmpty(city)) {
+                city = city.replace("市", "");
+                cityLocation.setText(city);
+                checkBox.setText(city);
+            }
 
             latLng = new LatLng(aLocation.getLatitude(), aLocation.getLongitude());
         }
@@ -568,6 +636,7 @@ public class MainActivity extends BaseActivity implements LocationSource, AMapLo
         }
         super.onBackPressed();
     }
+
 
 //    @Override
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

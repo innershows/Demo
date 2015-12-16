@@ -67,7 +67,6 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     public void init() {
         dengluzhuce.setOnClickListener(this);
         updateInfo();
-
     }
 
 
@@ -171,6 +170,15 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
             case R.id.youhuiquan:
                 //优惠券
                 //TODO 优惠券
+
+                if (TextUtils.isEmpty(token)) {
+                    return;
+                }
+
+
+                startActivity(new Intent(this, CouponActivity.class));
+
+
                 break;
             case R.id.zhanghujilu:
                 //user record
@@ -196,10 +204,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                     return;
                 }
 
-                startActivity(new Intent());
-
-
-
+                startActivity(new Intent(this, TuCaoActivity.class));
 
                 break;
 
